@@ -13,10 +13,6 @@ const char* password = "wifi4members";
 Adafruit_BMP085 bmp;
 HTTPClient http;
 
-int ce;
-int pa;
-int lightvalue;
-
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
@@ -30,11 +26,11 @@ void setup() {
     delay(1000);                        //---
     Serial.write("Connecting...");      //---
   }                                     //---
-  Serial.write("connected.");           //---
+  Serial.write("connected. 41");        //---
                                      
   if (!bmp.begin()) {               //checking the air presure sensor                
   Serial.write("A error occured");  //Error message   
-  //while (1) {}                    //---
+  //while (1) {}                      //---
   }
 }
   
@@ -48,9 +44,9 @@ void loop() {
   // put your main code here, to run repeatedly:
   //Demo Code for Testing
   Serial.write("reached loop");
-  ce = bmp.readTemperature();
-  pa = bmp.readPressure();
-  lightvalue = analogRead(32);
+  int ce = bmp.readTemperature();
+  int pa = bmp.readPressure();
+  int lightvalue = analogRead(32);
   Serial.write(lightvalue);
   Serial.write("light");
   Serial.write(pa);
@@ -60,15 +56,15 @@ void loop() {
   delay(2000);
 
   Serial.write("Contacting server...");
-  http.begin("10.6.0.163:5000/submit"); //Contact server
-  Serial.write("connected.");
+  http.begin("10.6.0.163/submit"); //Contact server
+  Serial.write("connected. 42");
 
-  /*String *data;
+  String data;
   StaticJsonDocument<1024> doc;
-  doc["temperature"] = -10;
-  serializeJson(doc, data);*/
+  temp["temperature"] = -10;
+  serializeJason(doc, &data);
  
-  http.addHeader("Content-Type", "text/plain");           //send post request (json)
+  http.addHeader("Content-Type", "text/json");           //send post request
   int httpCode = http.POST("esp32!!! 42");        //---
 
   if (httpCode > 0)                     //Check if everything worked
