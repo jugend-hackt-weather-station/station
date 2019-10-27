@@ -44,8 +44,8 @@ void loop() {
   float light = 100 - analogRead(32) / 40.95;             //---
   float CO = analogRead(33);                              //---
   float pressure = bmp.readPressure();                    //---
-  double longitude = 14.300827;                           //Hardcoded float
-  double latitude = 48.319259;                            //Hardcoded float
+  float longitude = 14.300827;                            //Hardcoded float
+  float latitude = 48.319259;                             //Hardcoded float
   if (isnan(humid) || isnan(temp)) {                      //Check the Humidity and temperature sensor
     Serial.println(F("Failed to read from DHT sensor!")); //---
     return;                                               //---
@@ -75,8 +75,8 @@ void loop() {
     /*String *data;
       StaticJsonDocument<1024> doc;
       doc["temperature"] = -10;
-      serializeJson(doc, data);    
-      http.addHeader("Content-Type", "application/json");           //send post request (json)*/
+      serializeJson(doc, data);*/    
+    http.addHeader("Content-Type", "application/json");           //send post request (json)
     
     String body = "{";                                            //Create a string to post to the server
     //body += "\"temperature\": 42"; demo hard coded temperature  //---
